@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>tail log</title>
+    <script src="//cdn.bootcss.com/jquery/2.1.4/jquery.js"></script>
+    <style>
+      #log-container span {
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="log-container">
+    </div>
+  <script>
+    $(document).ready(function() {
+      var websocket = new WebSocket('ws://{{ domain }}:{{ port }}/log/{{ name }}');
+      websocket.onmessage = function(event) {
+        $("#log-container").append('<span>' + event.data + '</span>');
+        window.scrollTo(0,document.body.scrollHeight);
+      };
+    });
+  </script>
+  </body>
+</html>
